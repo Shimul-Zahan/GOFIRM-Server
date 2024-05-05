@@ -116,4 +116,62 @@ const getAllProducts = async (req, res) => {
     }
 }
 
-module.exports = { getAllProducts, addCategory, upload, getAllCat, addProducts, getAllProducts };
+
+const updateProduct = async (req, res) => {
+    try {
+        const { productId } = req.params;
+        const updatedProduct = req.body;
+        // Update the product in the database
+        const product = await Product.findByIdAndUpdate(productId, updatedProduct);
+        if (!product) {
+            return res.status(404).json({ success: false, message: 'Product not found' });
+        }
+        res.status(200).json({ success: true, message: 'Product updated successfully', product });
+    } catch (error) {
+        console.error('Error updating product:', error);
+        res.status(500).json({ success: false, message: 'Internal server error' });
+    }
+};
+
+// Delete a product
+const deleteProduct = async (req, res) => {
+    try {
+        const deletedProduct = await Product.findByIdAndDelete(req.params.id);
+
+        if (!deletedProduct) {
+            return res.status(404).json({ error: 'Product not found' });
+        }
+
+        res.status(200).json({ message: 'Product deleted successfully' });
+    } catch (error) {
+        console.error('Error deleting product:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+};
+
+const search = async (req, res) => {
+    try {
+        const searchQuery = req.query.search;
+        const regex = new RegExp(searchQuery, 'i');
+        const products = await Product.find({
+            $or: [
+                { productName: regex },
+                { selectedCat: regex },
+                { region: regex },
+                { quality: regex },
+                { status: regex },
+                { quantity: regex },
+                { orderNotes: regex },
+                { isTopRated: regex },
+                { isTopSelling: regex }
+            ]
+        });
+        res.json(products);
+    } catch (error) {
+        console.error('Error searching products:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+}
+
+
+module.exports = { getAllProducts, addCategory, upload, getAllCat, addProducts, getAllProducts, updateProduct, deleteProduct, search };

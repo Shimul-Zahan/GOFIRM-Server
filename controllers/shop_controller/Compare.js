@@ -25,5 +25,16 @@ const add_to_compare = async (req, res) => {
         return res.status(500).json({ error: 'Internal server error' });
     }
 }
+const getLastTwoItems = async (req, res) => {
+    try {
+        const { email } = req.query
+        console.log(email);
+        const compareItems = await Compare.find({ email }).sort({ addedTime: -1 }).limit(2);
+        res.json(compareItems);
+    } catch (error) {
+        console.error('Error fetching last two items from compare list:', error);
+        return res.status(500).json({ error: 'Internal server error' });
+    }
+}
 
-module.exports = { add_to_compare }
+module.exports = { add_to_compare, getLastTwoItems }

@@ -25,8 +25,9 @@ const productSchema = new mongoose.Schema({
         required: true
     },
     quantity: {
-        type: Number,
-        required: true
+        type: String,
+        required: true,
+        default: '1KG'
     },
     addedTime: {
         type: Date,
@@ -36,6 +37,12 @@ const productSchema = new mongoose.Schema({
         type: String
     },
     image: {
+        type: String
+    },
+    isTopRated: {
+        type: String
+    },
+    isTopSelling: {
         type: String
     }
 });
