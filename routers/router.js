@@ -5,7 +5,7 @@ const { add_to_cart, get_cart_by_user, deleteCartItem } = require('../controller
 const { add_to_whisList, get_white_by_user, deleteWhiteItem } = require('../controllers/shop_controller/whislist');
 const { add_to_compare, getLastTwoItems } = require('../controllers/shop_controller/Compare');
 const { submitBilling } = require('../controllers/shop_controller/billing');
-const { checkout, paymentSuccess } = require('../controllers/payment');
+const { checkout, paymentSuccess, getLatestPayment } = require('../controllers/payment');
 const router = express.Router();
 
 
@@ -41,7 +41,8 @@ router.post('/submit-billing', submitBilling);
 
 // payment
 router.post('/checkout', checkout)
-router.post('/payment-success/:tra_id', paymentSuccess)
+router.post('/success', paymentSuccess)
+router.get('/get-latest-payment', getLatestPayment)
 
 
 
