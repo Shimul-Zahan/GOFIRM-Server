@@ -1,5 +1,5 @@
 const express = require('express');
-const { getAllProducts, addCategory, upload, getAllCat, addProducts, updateProduct, deleteProduct, search } = require('../controllers/shop_controller/products');
+const { getAllProducts, addCategory, upload, getAllCat, addProducts, updateProduct, deleteProduct, search, countProductsByCategory } = require('../controllers/shop_controller/products');
 const { registration, login, googleLogin } = require('../controllers/auth_controllers/auth');
 const { add_to_cart, get_cart_by_user, deleteCartItem } = require('../controllers/shop_controller/cart_controllers');
 const { add_to_whisList, get_white_by_user, deleteWhiteItem } = require('../controllers/shop_controller/whislist');
@@ -16,6 +16,7 @@ router.post('/add-product', upload.single("image"), addProducts)
 router.put('/update-product/:productId', updateProduct);
 router.delete('/delete-product/:id', deleteProduct);
 router.get('/search', search);
+router.get('/cat-count', countProductsByCategory);
 
 // auth routes here
 router.post('/registration', upload.single("image"), registration)

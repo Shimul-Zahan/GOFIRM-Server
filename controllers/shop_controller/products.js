@@ -173,5 +173,26 @@ const search = async (req, res) => {
     }
 }
 
+const countProductsByCategory = async (req, res) => {
+    try {
+        // Aggregate pipeline to group products by category and count them
+        const result = await Product.aggregate([
+            {
+                $group: {
+                    _id: '$selectedCat', // Group by category
+                    count: { $sum: 1 } // Count documents in each group
+                }
+            }
+        ]);
 
-module.exports = { getAllProducts, addCategory, upload, getAllCat, addProducts, getAllProducts, updateProduct, deleteProduct, search };
+        const counts = result.map(category => ({ name: category._id, count: category.count }));
+        console.log(counts);
+
+        res.json(counts);
+    } catch (error) {
+        console.error('Error counting products by category:', error);
+    }
+};
+
+
+module.exports = { getAllProducts, addCategory, upload, getAllCat, addProducts, getAllProducts, updateProduct, deleteProduct, search, countProductsByCategory };
