@@ -24,7 +24,7 @@ const checkout = async (req, res) => {
             total_amount: totalPrice,
             currency: 'BDT',
             tran_id: "xxxx54544sdhg55",
-            success_url: 'http://localhost:5000/api/success',
+            success_url: 'https://server-brown-tau.vercel.app/api/success',
             fail_url: 'http://localhost:3030/fail',
             cancel_url: 'http://localhost:3030/cancel',
             ipn_url: 'http://localhost:3030/ipn',
