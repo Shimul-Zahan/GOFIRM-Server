@@ -11,6 +11,10 @@ app.use(express.json());
 app.use(cors());
 app.use('/api', products_route)
 
+app.get("/test", (req, res) => {
+    return res.send("Working fine")
+})
+
 const connecting = () => {
     const uri = `mongodb+srv://quizeDB:W4VOxlogfo3vpsbD@cluster0.waps95s.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
     return uri;
