@@ -17,7 +17,11 @@
                 "DELETE",
                 "PATCH",
                 "OPTIONS"
-            ]
+            ],
+            "headers": {
+                "Access-Control-Allow-Origin": "https://gofirecommerce.netlify.app",
+                "Access-Control-Allow-Credentials": "true"
+            }
         }
     ]
 }
