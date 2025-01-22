@@ -9,7 +9,7 @@ require('dotenv').config();
 
 app.use(express.json());
 app.use(cors());
-// app.use('/api', products_route)
+app.use('/api', products_route)
 
 app.get("/", (req, res) => {
     return res.send("Working fine")
@@ -28,7 +28,7 @@ const connectDB = async () => {
 }
 
 const final = async () => {
-    // await connectDB()
+    await connectDB()
     app.listen(port, () => {
         console.log(`Server is running on port ${port}`);
     });
